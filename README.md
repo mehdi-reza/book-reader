@@ -12,12 +12,12 @@ Following is an example:
 
 
 ### book name: قاموس الجدید
-*ا					009.jpg
-*ا ۔۔۔ ب				009.jpg
-*ا ۔۔۔ ب				010.jpg
-*ا ۔۔۔ ت				010.jpg
-*ا ۔۔۔ ت				011.jpg
-*ا ۔۔۔ ث				011.jpg
+* ا					009.jpg
+* ا ۔۔۔ ب			009.jpg
+* ا ۔۔۔ ب			010.jpg
+* ا ۔۔۔ ت			010.jpg
+* ا ۔۔۔ ت			011.jpg
+* ا ۔۔۔ ث			011.jpg
 
 Please note the index name **ا ۔۔۔ ب** and name of the image **009.jpg** should be seperated by atleast one **tab** "\t" character.
 
