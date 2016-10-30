@@ -161,7 +161,7 @@ public class Models {
 
         private Loader.Book book;
         private List<String> index = new ArrayList<String>();
-        private Map<String,ZipEntry> indexImageMap=new HashMap<String,ZipEntry>();
+        private Map<Integer,ZipEntry> indexImageMap=new HashMap<Integer,ZipEntry>();
         ZipFile zipFile = null;
 
         public IndexModel(Loader.Book book) throws InvalidBookException {
@@ -177,7 +177,7 @@ public class Models {
             return this.index.get(index);
         }
         
-        public Image getImage(String index) throws IOException {
+        public Image getImage(Integer index) throws IOException {
             LOG.log(Level.INFO, "Selection changed {0}", index);
             return ImageIO.read(zipFile.getInputStream(indexImageMap.get(index)));
         }
@@ -204,7 +204,7 @@ public class Models {
                             LOG.log(Level.FINEST, "Found groups in index entry ..{0} {1}", new Object[]{line, m.replaceAll("\\$")});                        
                             String[] indexImage=m.replaceAll("\\$").split("\\$");
                             index.add(indexImage[0]);
-                            indexImageMap.put(indexImage[0], zipFile.getEntry(indexImage[1]));
+                            indexImageMap.put(index.size()-1, zipFile.getEntry(indexImage[1]));
                         }
                     }
                 }

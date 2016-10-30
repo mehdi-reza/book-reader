@@ -201,9 +201,10 @@ public class BookReader extends javax.swing.JFrame {
     }//GEN-LAST:event_selectBookImageMouseClicked
 
     private void indexListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_indexListValueChanged
+        if(evt.getValueIsAdjusting()) return; // not interesting in adjusting events
         try {
-            LOG.log(Level.INFO, "{0} {1}", new Object[]{evt.getFirstIndex(), evt.getLastIndex()});
-            page.setIcon(new ImageIcon(indexModel.getImage(indexModel.getElementAt(evt.getFirstIndex()))));
+            LOG.log(Level.FINEST, "selectIndex {0}", indexList.getSelectedIndex());
+            page.setIcon(new ImageIcon(indexModel.getImage(indexList.getSelectedIndex())));
         } catch (IOException ex) {
             LOG.log(Level.SEVERE, null, ex);
         }
