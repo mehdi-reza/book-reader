@@ -158,7 +158,7 @@ public class BookReader extends javax.swing.JFrame {
         nextSelectBookButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try {
-                    selectBookImage.setIcon(new ImageIcon(books.nextBookImage(current).getScaledInstance(selectBookImage.getWidth(), selectBookImage.getHeight(), Image.SCALE_SMOOTH)));
+                    selectBookImage.setIcon(new ImageIcon(books.nextBookImage(current).getScaledInstance(selectBookImage.getWidth(), -1, Image.SCALE_SMOOTH)));
                     selectBookDialog.setTitle(books.getTitle(current[0]));
                 } catch (IOException ex) {
                     Logger.getLogger(BookReader.class.getName()).log(Level.SEVERE, null, ex);
@@ -169,7 +169,7 @@ public class BookReader extends javax.swing.JFrame {
         prevSelectBookButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try {
-                    selectBookImage.setIcon(new ImageIcon(books.prevBookImage(current).getScaledInstance(selectBookImage.getWidth(), selectBookImage.getHeight(), Image.SCALE_SMOOTH)));
+                    selectBookImage.setIcon(new ImageIcon(books.prevBookImage(current).getScaledInstance(selectBookImage.getWidth(), -1, Image.SCALE_SMOOTH)));
                     selectBookDialog.setTitle(books.getTitle(current[0]));
                 } catch (IOException ex) {
                     Logger.getLogger(BookReader.class.getName()).log(Level.SEVERE, null, ex);
@@ -178,7 +178,7 @@ public class BookReader extends javax.swing.JFrame {
         });
         selectBookDialog.setLocationRelativeTo(this); // align center
         try {
-            Image img=books.nextBookImage(current).getScaledInstance(selectBookImage.getWidth(), selectBookImage.getHeight(), Image.SCALE_SMOOTH);
+            Image img=books.nextBookImage(current).getScaledInstance(selectBookImage.getWidth(), -1, Image.SCALE_SMOOTH);
             ImageIcon imgIcon=new ImageIcon(img);
             selectBookImage.setIcon(imgIcon);
             selectBookDialog.setTitle(books.getTitle(current[0]));
@@ -190,10 +190,14 @@ public class BookReader extends javax.swing.JFrame {
 
     private void selectBookImageMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_selectBookImageMouseClicked
         LOG.log(Level.INFO, "indexModel ...{0}", indexModel);
-        indexModel=books.open(current[0]);
-        indexModel.load();
-        indexList.setModel(indexModel);
-        selectBookDialog.setVisible(false);
+        try {
+            indexModel=books.open(current[0]);
+            indexModel.load();
+            indexList.setModel(indexModel);
+            selectBookDialog.setVisible(false);
+        } catch (InvalidBookException ex) {
+            Logger.getLogger(BookReader.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_selectBookImageMouseClicked
 
     private void indexListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_indexListValueChanged

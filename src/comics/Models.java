@@ -35,7 +35,7 @@ public class Models {
     public static class BookModel {
 
         private List<Loader.Book> books;
-        private Loader.Book openedBook;
+        //private Loader.Book openedBook;
 
         public BookModel(List<Loader.Book> books) {
             if (books == null) {
@@ -44,12 +44,13 @@ public class Models {
             this.books = books;
         }
 
-        public IndexModel open(int bookId) {
+        public IndexModel open(int bookId) throws InvalidBookException {
             LOG.log(Level.INFO, "Opening book ...{0}", bookId);
             IndexModel indexModel = null;
 
             for (Loader.Book book : books) {
                 if (book.getId() == bookId) {
+                    if(!book.isValid()) throw new InvalidBookException("Invalid book.. "+book.getArchiveName());
                     indexModel = new IndexModel(book);
                     break;
                 }
@@ -163,7 +164,8 @@ public class Models {
         private Map<String,ZipEntry> indexImageMap=new HashMap<String,ZipEntry>();
         ZipFile zipFile = null;
 
-        public IndexModel(Loader.Book book) {
+        public IndexModel(Loader.Book book) throws InvalidBookException {
+            if(!book.isValid()) throw new InvalidBookException("Invalid book .. "+book.getArchiveName());
             this.book = book;
         }
 

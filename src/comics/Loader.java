@@ -7,8 +7,6 @@ package comics;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -85,6 +83,7 @@ public class Loader {
                     }
                 } else {
                     LOG.log(Level.WARNING, "No book.info file found in archive {0}", book.getArchiveName());
+                    book.setValid(false);
                 }
             } catch (IOException ex) {
                 LOG.log(Level.SEVERE, null, ex);
@@ -105,6 +104,7 @@ public class Loader {
         private int id;
         private String bookName;
         private String archiveName;
+        private boolean valid=true;
 
         public Book() {
         }
@@ -135,6 +135,14 @@ public class Loader {
 
         public void setArchiveName(String archiveName) {
             this.archiveName = archiveName;
+        }
+
+        public boolean isValid() {
+            return valid;
+        }
+
+        public void setValid(boolean valid) {
+            this.valid = valid;
         }
 
         @Override
