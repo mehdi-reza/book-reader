@@ -169,6 +169,10 @@ public class Models {
             this.book = book;
         }
 
+        public Loader.Book getBook() {
+            return book;
+        }
+
         public int getSize() {
             return index.size();
         }

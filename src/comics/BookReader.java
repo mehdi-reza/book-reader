@@ -76,7 +76,8 @@ public class BookReader extends javax.swing.JFrame {
         prevSelectBookButton = new javax.swing.JButton();
         nextSelectBookButton = new javax.swing.JButton();
         selectBookImage = new javax.swing.JLabel();
-        navigation = new javax.swing.JPanel();
+        toolbar = new javax.swing.JToolBar();
+        jButton1 = new javax.swing.JButton();
         splitPane = new javax.swing.JSplitPane();
         indexPane = new javax.swing.JScrollPane();
         indexList = new javax.swing.JList<String>();
@@ -122,8 +123,23 @@ public class BookReader extends javax.swing.JFrame {
             }
         });
 
-        navigation.setLayout(new javax.swing.BoxLayout(navigation, javax.swing.BoxLayout.LINE_AXIS));
-        getContentPane().add(navigation, java.awt.BorderLayout.PAGE_START);
+        toolbar.setFloatable(false);
+        toolbar.setRollover(true);
+
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/comics/resources/book-open-icon.png"))); // NOI18N
+        jButton1.setText("Open Book");
+        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jButton1.setFocusable(false);
+        jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        toolbar.add(jButton1);
+
+        getContentPane().add(toolbar, java.awt.BorderLayout.NORTH);
 
         indexList.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         indexList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
@@ -195,6 +211,7 @@ public class BookReader extends javax.swing.JFrame {
             indexModel.load();
             indexList.setModel(indexModel);
             selectBookDialog.setVisible(false);
+            this.setTitle(indexModel.getBook().getBookName());
         } catch (InvalidBookException ex) {
             Logger.getLogger(BookReader.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -210,11 +227,15 @@ public class BookReader extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_indexListValueChanged
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        selectBookDialog.setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JList<String> indexList;
     private javax.swing.JScrollPane indexPane;
-    private javax.swing.JPanel navigation;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton nextSelectBookButton;
     private javax.swing.JLabel page;
     private javax.swing.JScrollPane pagePane;
@@ -222,5 +243,6 @@ public class BookReader extends javax.swing.JFrame {
     private javax.swing.JDialog selectBookDialog;
     private javax.swing.JLabel selectBookImage;
     private javax.swing.JSplitPane splitPane;
+    private javax.swing.JToolBar toolbar;
     // End of variables declaration//GEN-END:variables
 }
