@@ -71,6 +71,7 @@ public class BookReader extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
         selectBookDialog = new javax.swing.JDialog();
         prevSelectBookButton = new javax.swing.JButton();
@@ -78,6 +79,13 @@ public class BookReader extends javax.swing.JFrame {
         selectBookImage = new javax.swing.JLabel();
         toolbar = new javax.swing.JToolBar();
         jButton1 = new javax.swing.JButton();
+        jSeparator1 = new javax.swing.JToolBar.Separator();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
+        jSeparator2 = new javax.swing.JToolBar.Separator();
+        jButton6 = new javax.swing.JButton();
         splitPane = new javax.swing.JSplitPane();
         indexPane = new javax.swing.JScrollPane();
         indexList = new javax.swing.JList<String>();
@@ -126,8 +134,8 @@ public class BookReader extends javax.swing.JFrame {
         toolbar.setFloatable(false);
         toolbar.setRollover(true);
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/comics/resources/book-open-icon.png"))); // NOI18N
-        jButton1.setText("Open Book");
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/comics/resources/open_book.png"))); // NOI18N
+        jButton1.setToolTipText("Open Book");
         jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jButton1.setFocusable(false);
         jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -138,6 +146,63 @@ public class BookReader extends javax.swing.JFrame {
             }
         });
         toolbar.add(jButton1);
+        toolbar.add(jSeparator1);
+
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/comics/resources/first_page.png"))); // NOI18N
+        jButton2.setToolTipText("First Page");
+        jButton2.setFocusable(false);
+        jButton2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+
+        org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, indexList, org.jdesktop.beansbinding.ELProperty.create("${model.size!=null && model.size>0}"), jButton2, org.jdesktop.beansbinding.BeanProperty.create("enabled"));
+        bindingGroup.addBinding(binding);
+
+        toolbar.add(jButton2);
+
+        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/comics/resources/prev_page.png"))); // NOI18N
+        jButton3.setToolTipText("Previous");
+        jButton3.setFocusable(false);
+        jButton3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton3.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, indexList, org.jdesktop.beansbinding.ELProperty.create("${selectedElement!=null}"), jButton3, org.jdesktop.beansbinding.BeanProperty.create("enabled"));
+        bindingGroup.addBinding(binding);
+
+        toolbar.add(jButton3);
+
+        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/comics/resources/next_page.png"))); // NOI18N
+        jButton4.setToolTipText("Next");
+        jButton4.setFocusable(false);
+        jButton4.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton4.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, indexList, org.jdesktop.beansbinding.ELProperty.create("${selectedElement!=null}"), jButton4, org.jdesktop.beansbinding.BeanProperty.create("enabled"));
+        bindingGroup.addBinding(binding);
+
+        toolbar.add(jButton4);
+
+        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/comics/resources/last_page.png"))); // NOI18N
+        jButton5.setToolTipText("Last Page");
+        jButton5.setFocusable(false);
+        jButton5.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton5.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, indexList, org.jdesktop.beansbinding.ELProperty.create("${model.size!=null && model.size>0}"), jButton5, org.jdesktop.beansbinding.BeanProperty.create("enabled"));
+        bindingGroup.addBinding(binding);
+
+        toolbar.add(jButton5);
+        toolbar.add(jSeparator2);
+
+        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/comics/resources/fit_width.png"))); // NOI18N
+        jButton6.setToolTipText("Fit Width");
+        jButton6.setFocusable(false);
+        jButton6.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton6.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, indexList, org.jdesktop.beansbinding.ELProperty.create("${selectedElement!=null}"), jButton6, org.jdesktop.beansbinding.BeanProperty.create("enabled"));
+        bindingGroup.addBinding(binding);
+
+        toolbar.add(jButton6);
 
         getContentPane().add(toolbar, java.awt.BorderLayout.NORTH);
 
@@ -159,7 +224,9 @@ public class BookReader extends javax.swing.JFrame {
 
         getContentPane().add(splitPane, java.awt.BorderLayout.CENTER);
 
-        setSize(new java.awt.Dimension(900, 689));
+        bindingGroup.bind();
+
+        setSize(new java.awt.Dimension(1045, 689));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -218,7 +285,8 @@ public class BookReader extends javax.swing.JFrame {
     }//GEN-LAST:event_selectBookImageMouseClicked
 
     private void indexListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_indexListValueChanged
-        if(evt.getValueIsAdjusting()) return; // not interesting in adjusting events
+        if(evt.getValueIsAdjusting() || indexList.getSelectedIndex()==-1) return; // not interesting in adjusting events
+        LOG.log(Level.FINEST, "Selected Index..{0}",indexList.getSelectedIndex());
         try {
             LOG.log(Level.FINEST, "selectIndex {0}", indexList.getSelectedIndex());
             page.setIcon(new ImageIcon(indexModel.getImage(indexList.getSelectedIndex())));
@@ -236,6 +304,13 @@ public class BookReader extends javax.swing.JFrame {
     private javax.swing.JList<String> indexList;
     private javax.swing.JScrollPane indexPane;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
+    private javax.swing.JToolBar.Separator jSeparator1;
+    private javax.swing.JToolBar.Separator jSeparator2;
     private javax.swing.JButton nextSelectBookButton;
     private javax.swing.JLabel page;
     private javax.swing.JScrollPane pagePane;
@@ -244,5 +319,6 @@ public class BookReader extends javax.swing.JFrame {
     private javax.swing.JLabel selectBookImage;
     private javax.swing.JSplitPane splitPane;
     private javax.swing.JToolBar toolbar;
+    private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
 }
