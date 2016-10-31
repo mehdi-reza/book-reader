@@ -137,6 +137,7 @@ public class BookReader extends javax.swing.JFrame {
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/comics/resources/open_book.png"))); // NOI18N
         jButton1.setToolTipText("Open Book");
         jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jButton1.setEnabled(false);
         jButton1.setFocusable(false);
         jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -233,7 +234,8 @@ public class BookReader extends javax.swing.JFrame {
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         LOG.info("Loading books..");        
         books=new Models.BookModel(Loader.getInstance().loadBooks());
-        selectBookDialog.setVisible(true);
+        jButton1.setEnabled(true);
+        //selectBookDialog.setVisible(true);
     }//GEN-LAST:event_formWindowOpened
     
     private void selectBookDialogWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_selectBookDialogWindowOpened
