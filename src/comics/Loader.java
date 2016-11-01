@@ -31,9 +31,12 @@ public class Loader {
         return instance;
     }
 
-    public List<Book> loadBooks() {
+    public List<Book> loadBooks() throws NoBooksFoundException {
         
         File booksFolder=new File(BookReader.BOOKS_FOLDER);
+        
+        if(!booksFolder.exists()) throw new NoBooksFoundException();
+        
         int bookId=0;
         List<Loader.Book> books=new ArrayList<Loader.Book>();
         

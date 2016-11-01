@@ -5,6 +5,7 @@
  */
 package comics;
 
+import java.awt.Dialog;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,6 +13,8 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
 /**
@@ -137,6 +140,7 @@ public class BookReader extends javax.swing.JFrame {
         openBookButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/comics/resources/open_book.png"))); // NOI18N
         openBookButton.setToolTipText("Open Book");
         openBookButton.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        openBookButton.setEnabled(false);
         openBookButton.setFocusable(false);
         openBookButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         openBookButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -240,12 +244,17 @@ public class BookReader extends javax.swing.JFrame {
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         LOG.info("Loading books..");        
-        books=new Models.BookModel(Loader.getInstance().loadBooks());
-        //selectBookDialog.setVisible(true);
+        try {
+            books=new Models.BookModel(Loader.getInstance().loadBooks());
+            openBookButton.setEnabled(true);
+        } catch (NoBooksFoundException ex) {
+            JOptionPane.showMessageDialog(this, "No Books found..");
+            Logger.getLogger(BookReader.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_formWindowOpened
     
     private void selectBookDialogWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_selectBookDialogWindowOpened
-        
+        LOG.info("selectBookDialogWindowOpened...");
         nextSelectBookButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try {
@@ -254,7 +263,7 @@ public class BookReader extends javax.swing.JFrame {
                 } catch (IOException ex) {
                     Logger.getLogger(BookReader.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            }        
+            }
         });
         
         prevSelectBookButton.addActionListener(new ActionListener() {
@@ -283,6 +292,7 @@ public class BookReader extends javax.swing.JFrame {
         LOG.log(Level.INFO, "indexModel ...{0}", indexModel);
         try {
             indexModel=books.open(current[0]);
+            if(!indexModel.getBook().isValid()) throw new InvalidBookException();
             indexModel.load();
             indexList.setModel(indexModel);
             selectBookDialog.setVisible(false);
@@ -292,6 +302,7 @@ public class BookReader extends javax.swing.JFrame {
             lastButton.setEnabled(true);
             nextButton.setEnabled(true);
         } catch (InvalidBookException ex) {
+            JOptionPane.showMessageDialog(selectBookDialog, "The selected book archive \""+indexModel.getBook().getArchiveName()+"\" does not contain any \"book.info\" file for index information.");
             Logger.getLogger(BookReader.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_selectBookImageMouseClicked

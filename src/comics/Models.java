@@ -50,7 +50,7 @@ public class Models {
 
             for (Loader.Book book : books) {
                 if (book.getId() == bookId) {
-                    if(!book.isValid()) throw new InvalidBookException("Invalid book.. "+book.getArchiveName());
+                    //if(!book.isValid()) throw new InvalidBookException("Invalid book.. "+book.getArchiveName());
                     indexModel = new IndexModel(book);
                     break;
                 }
@@ -165,8 +165,8 @@ public class Models {
         ZipFile zipFile = null;
 
         public IndexModel(Loader.Book book) throws InvalidBookException {
-            if(!book.isValid()) throw new InvalidBookException("Invalid book .. "+book.getArchiveName());
             this.book = book;
+            //if(!book.isValid()) throw new InvalidBookException("Invalid book .. "+book.getArchiveName());            
         }
 
         public Loader.Book getBook() {
