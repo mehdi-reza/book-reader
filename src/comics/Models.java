@@ -197,7 +197,7 @@ public class Models {
                 indexImageMap.clear();
                 zipFile = new ZipFile(new File(BookReader.BOOKS_FOLDER, book.getArchiveName()));
                 ZipEntry toc = zipFile.getEntry(BookReader.TOC_ENTRY_NAME);
-                reader = new BufferedReader(new InputStreamReader(zipFile.getInputStream(toc)));
+                reader = new BufferedReader(new InputStreamReader(zipFile.getInputStream(toc), "UTF-8"));
                 reader.readLine(); // ignore book name
                 String line="";
                 while(line!=null) {

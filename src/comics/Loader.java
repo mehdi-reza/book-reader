@@ -73,7 +73,7 @@ public class Loader {
                 ZipEntry bookInfo=zipFile.getEntry("book.info");
                 
                 if(bookInfo!=null) {
-                    reader=new BufferedReader(new InputStreamReader(zipFile.getInputStream(bookInfo)));
+                    reader=new BufferedReader(new InputStreamReader(zipFile.getInputStream(bookInfo), "UTF-8"));
                     String firstLine=reader.readLine();                    
                     Matcher m = p.matcher(firstLine);
                     m.find();

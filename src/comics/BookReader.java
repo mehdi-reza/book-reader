@@ -5,7 +5,6 @@
  */
 package comics;
 
-import java.awt.Dialog;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,7 +12,6 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
-import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
@@ -74,7 +72,6 @@ public class BookReader extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
         selectBookDialog = new javax.swing.JDialog();
         prevSelectBookButton = new javax.swing.JButton();
@@ -88,10 +85,10 @@ public class BookReader extends javax.swing.JFrame {
         nextButton = new javax.swing.JButton();
         lastButton = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JToolBar.Separator();
-        fitWidthButton = new javax.swing.JButton();
         splitPane = new javax.swing.JSplitPane();
         indexPane = new javax.swing.JScrollPane();
         indexList = new javax.swing.JList<String>();
+        indexList.setComponentOrientation(java.awt.ComponentOrientation.RIGHT_TO_LEFT);
         pagePane = new javax.swing.JScrollPane();
         page = new javax.swing.JLabel();
 
@@ -128,6 +125,7 @@ public class BookReader extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Comic Books Reader");
+        setBackground(new java.awt.Color(255, 255, 255));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
@@ -205,22 +203,15 @@ public class BookReader extends javax.swing.JFrame {
         toolbar.add(lastButton);
         toolbar.add(jSeparator2);
 
-        fitWidthButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/comics/resources/fit_width.png"))); // NOI18N
-        fitWidthButton.setToolTipText("Fit Width");
-        fitWidthButton.setFocusable(false);
-        fitWidthButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        fitWidthButton.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-
-        org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, indexList, org.jdesktop.beansbinding.ELProperty.create("${selectedElement!=null}"), fitWidthButton, org.jdesktop.beansbinding.BeanProperty.create("enabled"));
-        bindingGroup.addBinding(binding);
-
-        toolbar.add(fitWidthButton);
-
         getContentPane().add(toolbar, java.awt.BorderLayout.NORTH);
 
+        indexPane.setPreferredSize(new java.awt.Dimension(150, 130));
+
+        indexList.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
         indexList.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         indexList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         indexList.setMinimumSize(new java.awt.Dimension(100, 0));
+        indexList.setNextFocusableComponent(pagePane);
         indexList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
                 indexListValueChanged(evt);
@@ -230,15 +221,16 @@ public class BookReader extends javax.swing.JFrame {
 
         splitPane.setLeftComponent(indexPane);
 
+        pagePane.setBackground(new java.awt.Color(255, 255, 255));
+
+        page.setBackground(new java.awt.Color(255, 255, 255));
         pagePane.setViewportView(page);
 
         splitPane.setRightComponent(pagePane);
 
         getContentPane().add(splitPane, java.awt.BorderLayout.CENTER);
 
-        bindingGroup.bind();
-
-        setSize(new java.awt.Dimension(1045, 689));
+        setSize(new java.awt.Dimension(1050, 689));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -312,7 +304,8 @@ public class BookReader extends javax.swing.JFrame {
         LOG.log(Level.FINEST, "Selected Index..{0}",indexList.getSelectedIndex());
         try {
             LOG.log(Level.FINEST, "selectIndex {0}", indexList.getSelectedIndex());
-            page.setIcon(new ImageIcon(indexModel.getImage(indexList.getSelectedIndex())));
+            page.setIcon(new ImageIcon(indexModel.getImage(indexList.getSelectedIndex()).getScaledInstance(pagePane.getWidth()-25, -1, Image.SCALE_SMOOTH)));
+            pagePane.getVerticalScrollBar().setValue(0);
         } catch (IOException ex) {
             LOG.log(Level.SEVERE, null, ex);
         }
@@ -362,7 +355,6 @@ public class BookReader extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton firstButton;
-    private javax.swing.JButton fitWidthButton;
     private javax.swing.JList<String> indexList;
     private javax.swing.JScrollPane indexPane;
     private javax.swing.JToolBar.Separator jSeparator1;
@@ -379,6 +371,5 @@ public class BookReader extends javax.swing.JFrame {
     private javax.swing.JLabel selectBookImage;
     private javax.swing.JSplitPane splitPane;
     private javax.swing.JToolBar toolbar;
-    private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
 }
